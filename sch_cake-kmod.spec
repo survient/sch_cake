@@ -1,11 +1,12 @@
 %global buildforkernels akmod
 %global commit c91b94f0b4456c43def2e77248a455a9a2449ed1
 %global shortcommit %(c=%{commit}; echo ${c:0:7})
+%global snapshotdate 20180706
 %global debug_package %{nil}
 
 Name: 		sch_cake-kmod
 Version:	0
-Release:	1%{?dist}
+Release:	0.1.%{snapshotdate}git%{shortcommit}%{?dist}
 Summary:	Kernel module (kmod) for sch_cake
 
 Group:		System Environment/Kernel
@@ -13,7 +14,6 @@ License:	GPLv2 or BSD
 URL:		https://github.com/dtaht/sch_cake.git
 Source0:	https://github.com/dtaht/sch_cake/archive/%{commit}/%{name}-%{version}-%{shortcommit}.tar.gz
 
-BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildRequires:	%{_bindir}/kmodtool
 ExclusiveArch:  i586 i686 x86_64 ppc ppc64
 
@@ -52,9 +52,6 @@ done
 %{?akmod_install}
 
 
-%clean
-rm -rf $RPM_BUILD_ROOT
-
 %changelog
-* Sat Jul 7 2018 Samuel Patwin <dagofthedofg@gmail.com> - 0-1
+* Sat Jul 8 2018 Samuel Patwin <dagofthedofg@gmail.com> - 0-0.1-20180706gitc91b94f
 - Initial spec file
