@@ -23,7 +23,7 @@ ExclusiveArch:  i586 i686 x86_64 ppc ppc64
 %{expand:%(kmodtool --target %{_target_cpu} --repo rpmfusion --kmodname %{name} %{?buildforkernels:--%{buildforkernels}} %{?kernels:--for-kernels "%{?kernels}"} 2>/dev/null) }
 
 %description
-Kernel Module containing Cake queueing discipline(qdisc).
+Kernel Module containing Cake queuing discipline.
 
 
 %prep
