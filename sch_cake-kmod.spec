@@ -45,13 +45,13 @@ done
 
 %install
 for kernel_version in %{?kernel_versions}; do
- mkdir -p ${RPM_BUILD_ROOT}%{kmodinstdir_prefix}/${kernel_version%%___*}/%{kmodinstdir_postfix}/
- install -D -m 755 -t ${RPM_BUILD_ROOT}%{kmodinstdir_prefix}/${kernel_version%%___*}/%{kmodinstdir_postfix}/ $(find _kmod_build_${kernel_version%%___*}/ -name '*.ko')
+ mkdir -p ${buildroot}%{kmodinstdir_prefix}/${kernel_version%%___*}/%{kmodinstdir_postfix}/
+ install -D -m 755 -t ${buildroot}%{kmodinstdir_prefix}/${kernel_version%%___*}/%{kmodinstdir_postfix}/ $(find _kmod_build_${kernel_version%%___*}/ -name '*.ko')
  chmod u+x %{buildroot}%{_prefix}/lib/modules/*/extra/*/*
 done
 %{?akmod_install}
 
 
 %changelog
-* Sat Jul 8 2018 Samuel Patwin <dagofthedofg@gmail.com> - 0-0.1-20180706gitc91b94f
+* Sun Jul 8 2018 Samuel Patwin <dagofthedofg@gmail.com> - 0-0.1.20180706gitc91b94f
 - Initial spec file
