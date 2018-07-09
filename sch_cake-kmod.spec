@@ -15,7 +15,6 @@ URL:		https://github.com/dtaht/sch_cake.git
 Source0:	https://github.com/dtaht/sch_cake/archive/%{commit}/%{name}-%{version}-%{shortcommit}.tar.gz
 
 BuildRequires:	%{_bindir}/kmodtool
-ExclusiveArch:  i586 i686 x86_64 ppc ppc64
 
 %{!?kernels:BuildRequires: buildsys-build-rpmfusion-kerneldevpkgs-%{?buildforkernels:%{buildforkernels}}%{!?buildforkernels:current}-%{_target_cpu} }
 
@@ -40,14 +39,14 @@ done
 %build
 for kernel_version in %{?kernel_versions}; do
     make %{?_smp_mflags} -C "${kernel_version##*___}" SUBDIRS=${PWD}/_kmod_build_${kernel_version%%___*} modules
+    %make_build -C "${kernel_version##*___}" SUBDIRS=${PWD}/_kmod_build_${kernel_version%%___*} modules
 done
 
 
 %install
 for kernel_version in %{?kernel_versions}; do
- mkdir -p ${buildroot}%{kmodinstdir_prefix}/${kernel_version%%___*}/%{kmodinstdir_postfix}/
- install -D -m 755 -t ${buildroot}%{kmodinstdir_prefix}/${kernel_version%%___*}/%{kmodinstdir_postfix}/ $(find _kmod_build_${kernel_version%%___*}/ -name '*.ko')
- chmod u+x %{buildroot}%{_prefix}/lib/modules/*/extra/*/*
+    install -D -m 755 -t ${buildroot}%{kmodinstdir_prefix}/${kernel_version%%___*}/%{kmodinstdir_postfix}/ $(find _kmod_build_${kernel_version%%___*}/ -name '*.ko')
+    chmod u+x %{buildroot}%{_prefix}/lib/modules/*/extra/*/*
 done
 %{?akmod_install}
 
